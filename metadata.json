@@ -1,0 +1,6 @@
+{
+  "name": "MindSync",
+  "description": "An interactive Single Page Application optimizing developer focus by balancing task checklists with voice-journaling and mental wellness trackers.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
