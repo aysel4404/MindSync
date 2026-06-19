@@ -53,9 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const cacheEmail = localStorage.getItem('user_email');
     const cacheAge = localStorage.getItem('user_age');
 
-    state.user.fullName = cacheName || "Kratish Shrivastava";
-    state.user.email = cacheEmail || "user@mindsync.com";
-    state.user.age = cacheAge || "21";
+    if (!cacheEmail) {
+        console.log("⚠️ No active session detected. Redirecting to login portal...");
+        window.location.href = '/';
+        return;
+    }
+    state.user.fullName = cacheName ;
+    state.user.email = cacheEmail ;
+    state.user.age = cacheAge ;
 
     const names = state.user.fullName.trim().split(/\s+/);
     if (names.length > 1) {
