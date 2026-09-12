@@ -1,0 +1,21 @@
+/* Custom Mascot Animation Set for MindSync */
+
+@keyframes squishyFloat {
+  0% {
+    transform: translateY(0px);
+    border-radius: 42% 58% 50% 50% / 45% 45% 55% 55%;
+  }
+  50% {
+    transform: translateY(-8px);
+    /* Subtle morphing stretch animation at peak height */
+    border-radius: 45% 55% 48% 52% / 48% 48% 52% 52%;
+  }
+  100% {
+    transform: translateY(0px);
+    border-radius: 42% 58% 50% 50% / 45% 45% 55% 55%;
+  }
+}
+
+.animate-squishy {
+  animation: squishyFloat 4s ease-in-out infinite;
+}
