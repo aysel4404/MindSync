@@ -1,28 +1,63 @@
 # MindSync
 
-MindSync is a developer workspace helper that checks your mood and productivity. You can record voice entries (journals), and the app uses AI to transcribe them, find your mood, and project a "Squishy Score" for your daily workflow.
-Your companion in the dashboard is Squishy, a friendly animated mascot that changes size, color, and expressions to match your current feeling.
+MindSync is a voice-journaling productivity application that analyzes a user's emotional state and adapts their daily workflow accordingly. Users record spoken journal entries, which are transcribed in-browser and analyzed by Google's Gemini API to produce a mood classification and a productivity capacity score ("Squishy Score"). This data drives a mood calendar, an energy-aware task scheduler, and long-term goal tracking.
 
----
+## Table of Contents
 
-##  How It Works
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Roadmap](#roadmap)
 
-1. **Frontend UI**: Built with simple HTML5 and styled with Tailwind CSS. It has login, signup, and a responsive dashboard.
-2. **Squishy Mascot**: A custom-shaped element that moves with CSS animations to feel alive and changes dynamically based on your analyzed mood.
-3. **Audio Capture**: Captures your voice through the browser's microphone using the `MediaRecorder` API and sends it to the backend as an audio file.
-4. **AI Processing**: 
-   - Transcribes your recorded wave/webm voice files.
-   - Analyzes your mood category (like Joyful, Tired, Stressed) and gives a numeric productivity rating.
-   - Uses the official Google Gemini SDK (`@google/genai`).
-5. **Database**: Users and journal history are stored in Supabase (PostgreSQL).
 
----
+## Overview
 
-## File Structure
+MindSync's dashboard is presented through an animated mascot, Squishy, alongside four core modules: Voice Journaling, Mood Tracking, a Scheduler, and Settings. Each voice or quick-tap mood entry is analyzed and stored, feeding into the calendar view and the task-prioritization logic.
 
-- `/frontend/` — Contains HTML files (`login.html`, `signup.html`, `dashboard.html`), CSS styles, and client JavaScript.
-- `/backend/` — Express server setup and routes for handling user auth and voice upload/analysis.
-- `schema.sql` — SQL definition to set up required database tables in Supabase.
-- `.env` — Your private environment keys (Supabase keys).
+## Features
 
----
+| Feature | Description |
+|---|---|
+| Voice Journaling | Records and transcribes a spoken entry client-side (Web Speech API), then submits the transcript for AI mood/productivity analysis. |
+| Quick Mood Check-in | Logs a mood in a single tap, without a full journal entry. |
+| Mood Calendar | Displays the most recent mood logged per calendar day for the current month. |
+| Task Scheduler | Daily to-do list with energy-level tagging (high/medium/low); tasks can be reordered based on the most recently logged mood. |
+| Long-Term Goals | Tracks multi-day goals with automatic, time-based progress calculation and an aggregate overall-progress metric. |
+| Authentication | Signup/login backed by Supabase (PostgreSQL), persisting across server restarts. |
+
+## Tech Stack
+
+- **Backend:** Node.js, Express
+- **Database / Auth:** Supabase (PostgreSQL)
+- **AI:** Google Gemini API (`@google/genai`)
+- **Frontend:** HTML5, vanilla JavaScript, Tailwind CSS, Font Awesome
+
+## Project Structure
+
+```
+MindSync/
+├── backend/
+│   ├── routes/
+│   │   ├── auth.js        # Signup/login routes, backed by Supabase
+│   │   └── journal.js     # Journal entry analysis via Gemini, with keyword-based fallback
+│   ├── server.js
+│   └── package.json
+└── frontend/
+    ├── css/style.css
+    ├── js/
+    │   ├── app.js          # Dashboard interactivity
+    │   └── api.js          # Fetch wrapper for backend endpoints
+    ├── login.html
+    ├── signup.html
+    └── dashboard.html
+```
+
+## Roadmap
+
+- Persist journal entries in Supabase alongside user accounts.
+- Hash passwords with bcrypt.
+- Move long-term goals into Supabase for cross-device access.
+- Add mood-reactive styling/animation to the Squishy mascot.
+
+
